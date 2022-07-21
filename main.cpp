@@ -13,6 +13,7 @@ int main()
     if(c=='Y' || c=='y')
     {
         int option;
+        openfile();
         do
         {
             cout<<"1: CREATE Details "<<endl;
