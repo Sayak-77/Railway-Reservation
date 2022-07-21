@@ -51,7 +51,7 @@ int main()
                 cout<<"\n~:: SYSTEM EXIT....saving to file ::~"<<endl;
                 break;
                 default:
-                cout<<"Wrong";
+                cout<<"Wrong Choice..!!";
                 break;
             }
         }while(option!=5);
@@ -64,7 +64,7 @@ int main()
         {
             cout<<"1: DISPLAY Train Details "<<endl;
             cout<<"2: BOOK A TICKET "<<endl;
-            cout<<"3: EXIT and save to Textfile "<<endl;
+            cout<<"3: RENDER TICKET "<<endl;
             cout<<"============================="<<endl;
             cout<<"Select Option >>";
             cin>>opt;
@@ -72,6 +72,18 @@ int main()
             {
                 case 1:
                 displayRecord();
+                break;
+                case 2:
+                cin.ignore();
+                cout<<"Enter the Train Number: ";
+                cin>>tnum;
+                bookticket(tnum);
+                break;
+                case 3:
+                Render();
+                break;
+                default:
+                cout<<"Wrong Choice..!!";
                 break;
             }
         }while(opt!=3);

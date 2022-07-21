@@ -2,6 +2,7 @@
 #include <string.h>
 #include <fstream>
 #include <sstream>
+#include <cstdlib>
 #include <ios>
 #include <iomanip>
 #include "myheader.h"
@@ -9,6 +10,9 @@ using namespace std;
 #define MEGA "Techno India College: Project"
 #define username "admin"
 #define pass "roothost"
+char Pgen;
+int PasAge,Pseat,key,status;
+string Pname,Btype;
 const int maxrow=10;
 string Tname[maxrow]={};
 int Tno[maxrow]={0};
@@ -126,14 +130,14 @@ void displayRecord()
     cout<<"Current Record(s)"<<endl;
     cout<<"============================================================================"<<endl;
     int count=0;
-    cout<<" SL.No. | Train Number  |      Train Description      | Seating Availability"<<endl<<"----------------------------------------------------------------------------\n";
+    cout<<" SL.No. | Train Number |      Train Description      | Seating Availability"<<endl<<"----------------------------------------------------------------------------\n";
     for(int i=0;i<maxrow;i++)
     {
         if(Tno[i]!=0)
         {
             count++;
-            cout<<setw(4)<<count<<setw(14)
-                <<Tno[i]<<setw(32)<<Tname[i]<<setw(17)<<Tavail[i]<<endl;
+            cout<<setw(4)<<count<<setw(15)
+                <<Tno[i]<<setw(31)<<Tname[i]<<setw(16)<<Tavail[i]<<endl;
         }
     }
     if(count==0)
@@ -205,4 +209,90 @@ void savefile()
         else
         break;
     }
+}
+void bookticket(int c)
+{
+    system("CLS");
+    int count=0;
+    cout<<"Railway Reservation Detail(s) "<<endl;
+    cout<<"============================================================================"<<endl;
+    cout<<" SL.No. | Train Number |      Train Description      | Seating Availability"<<endl<<"----------------------------------------------------------------------------\n";
+    for(int i=0;i<maxrow;i++)
+    {
+        if(Tno[i]==c)
+        {
+            count++;
+            cout<<setw(4)<<count<<setw(14)
+                <<Tno[i]<<setw(31)<<Tname[i]<<setw(16)<<Tavail[i]<<endl;
+            cout<<"============================================================================"<<endl;
+            if(Tavail[i]=="Yes" || Tavail[i]=="yes")
+            details(i,1);
+            else
+            {
+                cout<<"\nNO RESERVATION AVAILABLE....request for waiting list!\n"<<endl;
+                details(i,0);
+            }
+        }
+    }
+    if(count==0)
+    {
+        cout<<"No Record Exists..!"<<endl;
+    }
+}
+void details(int d,int f)
+{
+    char name[50];
+    char c,chr;
+    int age=0,seatnum=0;
+    cin.ignore();
+    cout<<"\nEnter Passenger Name: ";
+    cin.getline(name,50);
+    cout<<"Enter Passenger(M/F): ";
+    cin>>c;
+    cout<<"Enter Passenger Age: ";
+    cin>>age;
+    cout<<"Book Ticket(s) for "<<"["<<Tname[d]<<"]"<<" ? (y/n): ";
+    cin>>chr;
+    if(chr=='y' || chr=='Y')
+    {
+        srand(time(0));
+        seatnum=1+(rand()%80);
+        cout<<"\nPRINTING....click on Render(3) to view your ticket!\n"<<endl;
+    }
+    else
+    {
+        cout<<"\n\nTicket was not booked. Thank you!"<<endl;
+        exit(0);
+    }
+    Pname=name;
+    Pgen=c;
+    PasAge=age;
+    Pseat=seatnum;
+    key=d;
+    status=f;
+}
+void Render()
+{
+    system("CLS");
+    string str;
+    if(PasAge<=35)
+    Btype="Upper";
+    else if(PasAge > 35 && PasAge <=52)
+    Btype="Middle";
+    else
+    Btype="Lower";
+    if(status==1)
+    str="Confirmed";
+    else
+    {
+        str="Wait_List 1";
+        Pseat=-1;
+        Btype=" ";
+    }
+    cout<<"Passenger Ticket(s) "<<endl;
+    cout<<"=================================================================================================================="<<endl;
+    cout<<" Name               | Gender | Age | Train No. |        Train Name        | Seat No. | Berth Type |    Status "<<
+    endl<<"------------------------------------------------------------------------------------------------------------------\n";
+    cout<<" "<<Pname<<setw(8)<<Pgen<<setw(8)<<PasAge<<setw(11)<<Tno[key]<<setw(28)<<Tname[key]<<setw(9)<<Pseat<<setw(14)<<Btype<<setw(17)<<str<<endl;
+    cout<<"=================================================================================================================="<<endl;
 }
