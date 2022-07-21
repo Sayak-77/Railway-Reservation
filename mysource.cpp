@@ -65,7 +65,7 @@ bool check(char c)
     }
     else if(c=='N' || c=='n')
     {
-        cout<<"\n\n~:: Welcome to Techno Railway_Reservation ::~\n\n";
+        cout<<"\n\n~:: Welcome to Techno Railway Reservation ::~\n\n";
     }
 }
 void addRecord()
