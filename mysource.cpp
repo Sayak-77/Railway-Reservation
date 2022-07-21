@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string.h>
 #include <fstream>
+#include <sstream>
+#include <ios>
+#include <iomanip>
 #include "myheader.h"
 using namespace std;
 #define MEGA "Techno India College: Project"
@@ -129,7 +132,8 @@ void displayRecord()
         if(Tno[i]!=0)
         {
             count++;
-            cout<<"   "<<count<<"         "<<Tno[i]<<"            "<<Tname[i]<<"             "<<Tavail[i]<<endl;
+            cout<<setw(4)<<count<<setw(14)
+                <<Tno[i]<<setw(32)<<Tname[i]<<setw(17)<<Tavail[i]<<endl;
         }
     }
     if(count==0)
@@ -162,5 +166,43 @@ void deleteRecord(int b)
     if(count==0)
     {
         cout<<"Train Number does not exist!"<<endl;
+    }
+}
+void openfile()
+{
+    string line,word,word2,word3;
+    stringstream iss;
+    ifstream myfile;
+    myfile.open("Train_Details.txt");
+    if(myfile.is_open())
+    {
+        int i=0;
+        while(!myfile.eof())
+        {
+            getline(myfile,line);
+            int l=line.length();
+            word=line.substr(0,5);
+            Tno[i]=stoi(word);
+            Tname[i]=line.substr(6,l-10);
+            Tavail[i]=line.substr(l-3,l);
+            ++i;
+        }
+    }
+    else
+    {
+        cout<<"Unable to open the File! "<<endl;
+    }
+}
+void savefile()
+{
+    ofstream myfile;
+    myfile.open("Train_Details.txt", ofstream::app);
+    int i;
+    for(i=0;i<maxrow;i++)
+    {
+        if(Tno[i]!=0)
+        myfile<<"\n"<<Tno[i]<<" "<<Tname[i]<<" "<<Tavail[i];
+        else
+        break;
     }
 }

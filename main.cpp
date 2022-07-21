@@ -46,10 +46,34 @@ int main()
                 case 4:
                 displayRecord();
                 break;
+                case 5:
+                savefile();
+                cout<<"\n~:: SYSTEM EXIT....saving to file ::~"<<endl;
+                break;
                 default:
                 cout<<"Wrong";
                 break;
             }
         }while(option!=5);
+    }
+    else
+    {
+        int opt;
+        openfile();
+        do
+        {
+            cout<<"1: DISPLAY Train Details "<<endl;
+            cout<<"2: BOOK A TICKET "<<endl;
+            cout<<"3: EXIT and save to Textfile "<<endl;
+            cout<<"============================="<<endl;
+            cout<<"Select Option >>";
+            cin>>opt;
+            switch(opt)
+            {
+                case 1:
+                displayRecord();
+                break;
+            }
+        }while(opt!=3);
     }
 }
